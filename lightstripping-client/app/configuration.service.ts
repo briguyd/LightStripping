@@ -32,7 +32,7 @@ export class ConfigurationService {
   }
 
   delete(id: number): Promise<void> {
-    const url = `${this.configurationUrl}/${id}`;
+    const url = `${this.configurationsUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => null)
