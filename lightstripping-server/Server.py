@@ -29,10 +29,10 @@ class S(BaseHTTPRequestHandler):
     def do_GET(self):
         self._set_headers()
         self.wfile.write(bytes("<html><body><h1>hi!</h1></body></html>", "utf8"))
-        print "LED on"
+        print("LED on")
         GPIO.output(18,GPIO.HIGH)
         time.sleep(1)
-        print "LED off"
+        print("LED off")
         GPIO.output(18,GPIO.LOW)
 
     def do_HEAD(self):
