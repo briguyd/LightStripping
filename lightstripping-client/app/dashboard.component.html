@@ -1,0 +1,9 @@
+<h3>Top Configurations</h3>
+<div class="grid grid-pad">
+  <div *ngFor="let configuration of configurations" (click)="gotoDetail(configuration)" class="col-1-4">
+    <div class="module configuration">
+      <h4>{{configuration.name}}</h4>
+    </div>
+  </div>
+</div>
+<configuration-search></configuration-search>

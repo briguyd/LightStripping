@@ -1,0 +1,10 @@
+<div id="search-component">
+  <h4>Configuration Search</h4>
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div>
+    <div *ngFor="let configuration of configurations | async"
+         (click)="gotoDetail(configuration)" class="search-result" >
+      {{configuration.name}}
+    </div>
+  </div>
+</div>
