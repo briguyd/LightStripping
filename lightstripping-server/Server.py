@@ -23,12 +23,12 @@ import time
 class S(BaseHTTPRequestHandler):
     def _set_headers(self):
         self.send_response(200)
-        self.send_header('Content-type', 'text/html')
+        self.send_header('Content-type', 'application/json')
         self.end_headers()
 
     def do_GET(self):
         self._set_headers()
-        self.wfile.write(bytes("<html><body><h1>hi!</h1></body></html>", "utf8"))
+        self.wfile.write(bytes("{id: 11, name: 'Test 1'}", "utf8"))
         print("LED on")
         GPIO.output(18,GPIO.HIGH)
         time.sleep(1)
@@ -41,7 +41,7 @@ class S(BaseHTTPRequestHandler):
     def do_POST(self):
         # Doesn't do anything with posted data
         self._set_headers()
-        self.wfile.write(bytes("<html><body><h1>POST!</h1></body></html>", "utf8"))
+        self.wfile.write(bytes("{id: 11, name: 'Test 1'}", "utf8"))
         
 def run(server_class=HTTPServer, handler_class=S, port=80):
     server_address = ('', port)
