@@ -1,0 +1,13 @@
+<h2>All Configurations</h2>
+<ul class="configuration-list">
+    <li *ngFor="let configuration of configurations" (click)="onSelect(configuration)" [class.selected]="configuration === selectedConfiguration">
+        <span class="badge">{{configuration.id}}</span>
+        <span>{{configuration.name}}</span>
+    </li>
+</ul>
+<div *ngIf="selectedConfiguration">
+    <h2>
+        {{selectedConfiguration.name | uppercase}} is my configuration
+    </h2>
+    <button (click)="gotoDetail()">View Details</button>
+</div>
