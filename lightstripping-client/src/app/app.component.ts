@@ -21,14 +21,12 @@ export class AppComponent implements OnInit {
     this.configurationService.getActive().subscribe(
       configuration => this.configuration = configuration,
       e => console.log(e),
-      () => {});
+      () => {this.configurationService.changeActive(this.configuration)});
 
     this.subscription = this.configurationService.activeChanged$.subscribe(
       configuration => {
-        this.configuration = configuration; console.log("Test");
-      },
-      e => e,
-      () => console.log(this.configuration));
+        this.configuration = configuration;
+      });
   }
 
   ngOnDestroy() {

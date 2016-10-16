@@ -57,7 +57,6 @@ export class ConfigurationService {
     //     return this._http.put
     // }
     changeActive(activeConfiguration: Configuration) {
-        console.log("Changing: " + activeConfiguration.name);
         this.activeChangedSource.next(activeConfiguration);
     }
 
