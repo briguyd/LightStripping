@@ -6,11 +6,13 @@ import { RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ConfigurationService } from './configuration.service';
-import { ConfigurationListComponent } from './configuration-list.component';
+import { ConfigurationListComponent } from './configuration-list/configuration-list.component';
+import { ConfigurationDetailComponent } from './configuration-detail/configuration-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ConfigurationDetailComponent,
     ConfigurationListComponent
   ],
   imports: [
@@ -26,6 +28,10 @@ import { ConfigurationListComponent } from './configuration-list.component';
       {
         path: 'configuration-list',
         component: ConfigurationListComponent
+      },
+      {
+        path: 'configuration/:id',
+        component: ConfigurationDetailComponent
       }
     ])
   ],

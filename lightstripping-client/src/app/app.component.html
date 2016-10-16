@@ -1,6 +1,9 @@
 <h1>
   {{title}}
 </h1>
+<div *ngIf="configuration">
+    <h2 (click)="gotoDetail()">Active Configuration: {{configuration.name}}</h2>
+</div>
 <nav>
      <!--<a routerLink="/dashboard" routerLinkActive="active">Dashboard</a> <a routerLink="/configurations" routerLinkActive="active">Configurations</a>-->
 </nav>

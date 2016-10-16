@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import reqparse, abort, Api, Resource
 from flask_cors import CORS
 
@@ -12,13 +12,15 @@ CONFIGS = [
     {'id': 2, 'name': u'Test 2'}
 ]
 
+activeConfig = CONFIGS[0];
+
 
 def abort_if_config_doesnt_exist(config_id):
     if len(CONFIGS) <= int(config_id):
         abort(404, message="Config {} doesn't exist".format(config_id))
 
 parser = reqparse.RequestParser()
-parser.add_argument('task')
+parser.add_argument('id')
 
 
 # Config
@@ -33,12 +35,24 @@ class Config(Resource):
         del CONFIGS[int(config_id)]
         return '', 204
 
-    def put(self, config_id):
-        args = parser.parse_args()
-        task = {'task': args['task']}
-        CONFIGS[int(config_id)] = task
-        return task, 201
+    # def put(self, config_id):
+    #     args = parser.parse_args()
+    #     task = {'task': args['task']}
+    #     CONFIGS[int(config_id)] = task
+    #     return task, 201
 
+# Active
+# shows the active config and lets you set it
+class ActiveConfig(Resource):
+    def get(self):
+        return activeConfig
+    
+    def post(self):
+        global activeConfig
+        args = parser.parse_args()
+        id = args['id']
+        activeConfig = CONFIGS[int(id)]
+        return activeConfig, 201
 
 # ConfigList
 # shows a list of all configs, and lets you POST to add new tasks
@@ -58,6 +72,7 @@ class ConfigList(Resource):
 ##
 api.add_resource(ConfigList, '/configs')
 api.add_resource(Config, '/configs/<config_id>')
+api.add_resource(ActiveConfig, '/active')
 
 
 if __name__ == '__main__':
