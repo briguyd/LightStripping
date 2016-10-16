@@ -7,8 +7,7 @@ import { ConfigurationService } from '../configuration.service';
 @Component({
   selector: 'app-configuration-detail',
   templateUrl: './configuration-detail.component.html',
-  styleUrls: ['./configuration-detail.component.css'],
-  providers: [ConfigurationService]
+  styleUrls: ['./configuration-detail.component.css']
 })
 
 export class ConfigurationDetailComponent implements OnInit {

@@ -6,8 +6,7 @@ import { ConfigurationService } from '../configuration.service';
 @Component({
     selector: 'app-configuration-list',
     templateUrl: 'configuration-list.component.html',
-    styleUrls: ['configuration-list.component.css'],
-    providers: [ConfigurationService]
+    styleUrls: ['configuration-list.component.css']
 })
 export class ConfigurationListComponent implements OnInit {
 
@@ -30,7 +29,8 @@ export class ConfigurationListComponent implements OnInit {
     }
 
     setActive(): void {
-        this.configurationService.setActive(this.selectedConfiguration.id).subscribe();
+        this.configurationService.setActive(this.selectedConfiguration.id).subscribe(c => c, e => console.log(e),
+            () => this.configurationService.changeActive(this.selectedConfiguration));
     }
     onSelect(configuration: Configuration): void {
         this.selectedConfiguration = configuration;

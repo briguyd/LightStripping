@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfigurationService } from './configuration.service';
 import { Configuration } from './configuration';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [ConfigurationService]
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   title = 'LightStripping';
   configuration: Configuration;
+  subscription: Subscription;
 
   constructor(private configurationService: ConfigurationService, private router: Router) {
 
@@ -18,7 +19,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.configurationService.getActive().subscribe(
-      configuration => this.configuration = configuration);
+      configuration => this.configuration = configuration,
+      e => console.log(e),
+      () => {});
+
+    this.subscription = this.configurationService.activeChanged$.subscribe(
+      configuration => {
+        this.configuration = configuration; console.log("Test");
+      },
+      e => e,
+      () => console.log(this.configuration));
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   gotoDetail(): void {

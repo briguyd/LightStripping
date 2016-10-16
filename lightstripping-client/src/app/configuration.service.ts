@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { Configuration } from './configuration';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ConfigurationService {
@@ -11,6 +12,9 @@ export class ConfigurationService {
     private configsUrl: string;
     private activeConfigUrl: string;
     private headers: Headers;
+
+    private activeChangedSource = new Subject<Configuration>();
+    activeChanged$ = this.activeChangedSource.asObservable();
 
     constructor(private _http: Http) {
 
@@ -44,7 +48,7 @@ export class ConfigurationService {
     setActive(id: number): Observable<Configuration> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        
+
         return this._http.post(this.actionUrl + this.activeConfigUrl, JSON.stringify({ "id": id }), options)
             .map((response: Response) => <Configuration>response.json())
             .catch(this.handleError);
@@ -52,6 +56,11 @@ export class ConfigurationService {
     // save(configuration: Configuration): void {
     //     return this._http.put
     // }
+    changeActive(activeConfiguration: Configuration) {
+        console.log("Changing: " + activeConfiguration.name);
+        this.activeChangedSource.next(activeConfiguration);
+    }
+
 
     private handleError(error: Response) {
         console.error(error);
