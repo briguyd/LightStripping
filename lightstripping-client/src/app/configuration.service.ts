@@ -53,9 +53,16 @@ export class ConfigurationService {
             .map((response: Response) => <Configuration>response.json())
             .catch(this.handleError);
     }
-    // save(configuration: Configuration): void {
-    //     return this._http.put
-    // }
+
+    add(configuration: Configuration): Observable<Configuration> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.actionUrl + this.configsUrl, JSON.stringify(configuration), options)
+            .map((response: Response) => <Configuration>response.json())
+            .catch(this.handleError);
+    }
+    
     changeActive(activeConfiguration: Configuration) {
         this.activeChangedSource.next(activeConfiguration);
     }

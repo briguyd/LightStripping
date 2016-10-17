@@ -28,4 +28,8 @@ export class ConfigurationDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  save(): void {
+    // this.configurationService.save(this.configuration).subscribe();
+  }
 }

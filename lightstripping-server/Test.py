@@ -35,12 +35,6 @@ class Config(Resource):
         del CONFIGS[int(config_id)]
         return '', 204
 
-    # def put(self, config_id):
-    #     args = parser.parse_args()
-    #     task = {'task': args['task']}
-    #     CONFIGS[int(config_id)] = task
-    #     return task, 201
-
 # Active
 # shows the active config and lets you set it
 class ActiveConfig(Resource):
@@ -55,17 +49,14 @@ class ActiveConfig(Resource):
         return activeConfig, 201
 
 # ConfigList
-# shows a list of all configs, and lets you POST to add new tasks
+# shows a list of all configs, and lets you POST to add new configs
 class ConfigList(Resource):
     def get(self):
         return CONFIGS
 
     def post(self):
-        args = parser.parse_args()
-        config_id = int(max(CONFIGS.keys()).lstrip('config')) + 1
-        config_id = 'config%i' % config_id
-        CONFIGS[config_id] = {'task': args['task']}
-        return CONFIGS[config_id], 201
+        CONFIGS.append(request.data)
+        return CONFIGS[len(CONFIGS)-1], 201
 
 ##
 ## Actually setup the Api resource routing here
