@@ -54,9 +54,9 @@ class ConfigList(Resource):
     def get(self):
         return CONFIGS
 
-    def post(self):
-        CONFIGS.append(request.data)
-        return CONFIGS[len(CONFIGS)-1], 201
+    # def post(self):
+        # CONFIGS.append(request.data)
+        # return CONFIGS[len(CONFIGS)-1], 201
 
 ##
 ## Actually setup the Api resource routing here
